@@ -7,14 +7,14 @@
 //->/temp/x/y/z->req.params[0]= x; [1]= y; [2]= z;
 //2.  req.query: (url)/temp?x=2&y=3->req.query.x=2;
 //3.  we do not know which callback(回调函数) faster!
-//4.  requireJS: ./==>root; ../==>baseUrl of root 
+//4.  pathExp: ./==>root; ../==>baseUrl of root 
 //5.  express-static: express.static('staticFilePath', op)==> need not to add relative routes, instead use root
 //==> (right)host/static.file==> (false)host/staicFilePath/static.file==> because the staicFilePath route will be 
 //appended to global staticFile list, when staticFile is visited, server will find and send the file from the list
 //6.  ! never use insert into tbls (cols) values(), instead use insert into tbls set cols=values, cols= values
 //function return
-var t0 = function() {
-    var b = function() { return 1; };
+let t0 = function() {
+    let b = function() { return 1; };
     console.log(b);
     console.log(b());
 };
@@ -22,8 +22,8 @@ var t0 = function() {
 
 
 //this specificities
-var t1 = function() {
-    var G = {
+let t1 = function() {
+    let G = {
         t0: { Object: '/' },
         this0: function() { console.log(this); }, //function/inside type: this==> the object
         this1: this, //key-value/outside type: this==> global this
@@ -33,14 +33,14 @@ var t1 = function() {
 };
 //t1();
 
-//var specificities
-var t3 = function() {
-    var ob = {
+//let specificities
+let t3 = function() {
+    let ob = {
         ob: function() { return this },
         x: 1
     };
-    var obv = ob;
-    var obn = ob.ob();
+    let obv = ob;
+    let obn = ob.ob();
     console.log(ob.x + '/' + obv.x + '/' + obn);
     obv.x = 2;
     console.log(ob.x + '/' + obv.x + '/' + obn.x);
@@ -49,7 +49,7 @@ var t3 = function() {
 
 //try-catch in error handle(js included)
 
-var t4 = function(s) {
+let t4 = function(s) {
     try {
         s = Buffer.from(s, 'base64');
         //!here will be stopped by throw(from s above) and turn to catch
@@ -64,34 +64,34 @@ var t4 = function(s) {
             console.log(err);
         }
     } //once an error is thrown and not be caught, program finish
-    var e = 'catch all err thrown';
+    let e = 'catch all err thrown';
     console.log(e); //if not using try-catch, these will not be executed执行
 };
 //t4()
 
 //implicit arguments in js function: arguments, this
-var t5 = function() {
+let t5 = function() {
     console.log(arguments);
     console.log(arguments.length);
 };
 //t5('x', 'y');
 
-//datatype with var
-var t6 = function() {
-    var ob = { num: 123, s: 's', ob: { n: '?' }, arr: ['1', '2'] };
-    var obn = ob.num;
+//datatype with let
+let t6 = function() {
+    let ob = { num: 123, s: 's', ob: { n: '?' }, arr: ['1', '2'] };
+    let obn = ob.num;
     obn++;
     console.log('n->' + obn + '/' + ob.num);
-    var obs = ob.s;
+    let obs = ob.s;
     obs = obs + '?';
     console.log('s->' + obs + '/' + ob.s);
-    var obob = ob.ob;
+    let obob = ob.ob;
     obob.n = 'x';
     console.log('ob->' + obob.n + '/' + ob.ob.n);
-    var oba = ob.arr;
+    let oba = ob.arr;
     oba[0] = '3';
     console.log('arr->' + oba[0] + '/' + ob.arr[0]);
-    var ob1 = { ob: { n: '??' } };
+    let ob1 = { ob: { n: '??' } };
     ob1 = ob;
     ob1.ob = 'null';
     console.log('new ob->' + ob1.ob + '/' + ob.ob);
@@ -100,34 +100,34 @@ var t6 = function() {
 
 
 //js test module(assert)
-var assert = require('assert');
-var t7 = function() {
+let assert = require('assert');
+let t7 = function() {
     assert(true, 'assert true here');
     //assert(false, 'assert fail here')
 };
 //t7()
 
-//speed compare: global variable and local variable
-var g = 0;
-var t8 = function() {
-    var start = new Date();
-    for (var i = 0; i < 10000; i++) {
+//speed compare: global letiable and local letiable
+let g = 0;
+let t8 = function() {
+    let start = new Date();
+    for (let i = 0; i < 10000; i++) {
         g = i;
         console.log(g);
     }
-    var elapsed = new Date() - start;
+    let elapsed = new Date() - start;
     console.log('elapsed time: ' + elapsed);
 };
 //t8()
 
 //prototype
-var t9 = function() {
-    var Proto = function() {
+let t9 = function() {
+    let Proto = function() {
         this.diff = ["d"];
     };
     Proto.prototype.only = ["o"];
-    var p = new Proto();
-    var p1 = new Proto();
+    let p = new Proto();
+    let p1 = new Proto();
     p.diff.push(5); //reflect in special object
     p.only.push(8); //operate Proto.prototype.only, reflect in all new Proto()
     console.log(p.only === p1.only); //true
@@ -137,35 +137,35 @@ var t9 = function() {
 //t9();
 
 //closure闭包
-var closure = function() {
-    var Outer = function(argOuter = "/ao") {
-        var variableOuter = "/o";
+let closure = function() {
+    let Outer = function(argOuter = "/ao") {
+        let letiableOuter = "/o";
         Outer = null; //outer which points to an anonymous function
         return function middle(argMiddle = "/am") {
-            var variableMiddle = "/m";
-            var inner = function(argInner = "/ai") {
-                var variableInner = "/i";
+            let letiableMiddle = "/m";
+            let inner = function(argInner = "/ai") {
+                let letiableInner = "/i";
                 inner = null; //inner which points to an anonymous function, not global
                 return function(deeper = "/deeper") {
-                    var variableDeeper = "/d";
-                    console.log("saved variables in closure: outer");
-                    console.log(Outer + argOuter + variableOuter);
-                    console.log("saved variables in closure: middle");
-                    console.log(middle.name + argMiddle + variableMiddle);
-                    console.log("saved variables in closure: inner");
-                    console.log(inner + argInner + variableInner);
-                    console.log("variables in self scope:");
-                    console.log(deeper + variableDeeper);
+                    let letiableDeeper = "/d";
+                    console.log("saved letiables in closure: outer");
+                    console.log(Outer + argOuter + letiableOuter);
+                    console.log("saved letiables in closure: middle");
+                    console.log(middle.name + argMiddle + letiableMiddle);
+                    console.log("saved letiables in closure: inner");
+                    console.log(inner + argInner + letiableInner);
+                    console.log("letiables in self scope:");
+                    console.log(deeper + letiableDeeper);
                 };
             };
             return inner;
         };
     };
-    var MiddleR = new Outer(); //middle(){...}
-    var InnerR = new MiddleR(); //inner(){...}
-    var deeper = new InnerR(); //anonymous匿名 function{var variableDeeper...}
+    let MiddleR = new Outer(); //middle(){...}
+    let InnerR = new MiddleR(); //inner(){...}
+    let deeper = new InnerR(); //anonymous匿名 function{let letiableDeeper...}
     //outer(); middleR(); innerR(); //err
-    //deeper(); //output all closure variables/inline objects
+    //deeper(); //output all closure letiables/inline objects
 };
 
 //funciton expression, local scope
@@ -174,11 +174,11 @@ function Fnexp() {
 
     const that = this;
     this.fnexpTestName = "I am global context";
-    var value = (function ex() {
-        var closureVariable = " IN CLOSURE";
+    let value = (function ex() {
+        let closureletiable = " IN CLOSURE";
         return function() {
             console.log("function expression assignment is ok");
-            return "function expression " + closureVariable;
+            return "function expression " + closureletiable;
         };
     })() /*ex()*/ (); /*the return anonymous function*/
     console.log(value);
@@ -193,9 +193,9 @@ function Fnexp() {
 //new Fnexp();
 
 //combination inheritance
-var t11 = function() {
-    var superTypeCall = 0;
-    var SuperType = function(argSuper = "superTypeCall: ") {
+let t11 = function() {
+    let superTypeCall = 0;
+    let SuperType = function(argSuper = "superTypeCall: ") {
         this.superName = "superType";
         this.override = true;
         this.array = [6];
@@ -205,7 +205,7 @@ var t11 = function() {
     SuperType.prototype.getProperty = function(name) {
         console.log(this[name]);
     };
-    var SubType = function() {
+    let SubType = function() {
         //promise each subType object has own copy of superType.prototype,
         //avoid extends 1-1{}
         //property inherit 1-1
@@ -223,7 +223,7 @@ var t11 = function() {
     //using single is Deprecated反对的,if has extends of reference type(array, object+) 
     SubType.prototype = new SuperType();
     //}
-    var subR = new SubType();
+    let subR = new SubType();
     //reflect in both prototype and object if no property inherit 1-1
     subR.array.push(7);
     new SubType().getProperty("array");
@@ -233,7 +233,7 @@ var t11 = function() {
 
 //[parasitic combination inheritance寄生(构造函数)组合(原型链)式继承]
 //avoid unnecessary superType() call with above combination inherit
-var parasitic = function() {
+let parasitic = function() {
     function extend(object) {
         function F() {}
         F.prototype = object;
@@ -269,7 +269,7 @@ var parasitic = function() {
     //prototype extends
     inheritPrototype(SubType, SuperType);
 
-    var sub = new SubType();
+    let sub = new SubType();
     sub.refN.push(false);
     sub.ref.push(true);
     sub.getProperty("refN");
@@ -282,7 +282,7 @@ var parasitic = function() {
 //(!) generally inheritance, adopt construtor mix prototype
 
 //error
-var errorTest = function(err) {
+let errorTest = function(err) {
     try {
         throw new ReferenceError(err);
     } catch (err) {
@@ -294,8 +294,8 @@ var errorTest = function(err) {
 //console.log("continue");
 
 //prototype function and command function(anonymous or named) in closure
-var protoFnAndCommandFn = function() {
-    var commandFn = function(time) {
+let protoFnAndCommandFn = function() {
+    let commandFn = function(time) {
         console.log(time);
         if (time === 1) {
             return;
@@ -308,14 +308,14 @@ var protoFnAndCommandFn = function() {
     console.log("command");
     commandFn(0);
 
-    var Proto = function(name) { this.protoFn(0); };
-    var AnotherProto = function() {};
+    let Proto = function(name) { this.protoFn(0); };
+    let AnotherProto = function() {};
     AnotherProto.prototype.protoFn = function(op, fn) {
         fn();
     };
     Proto.prototype.protoFn = function() {
         //this is new Proto();
-        var that = this;
+        let that = this;
         //each function has its own scope and closure since defination
         //defination has no limit in its position, as argument is ok
         new AnotherProto().protoFn("op", function() {
@@ -328,13 +328,13 @@ var protoFnAndCommandFn = function() {
 //protoFnAndCommandFn();
 
 //regexp
-var regexp = function() {
+let regexp = function() {
     console.log("example: values in object[index] stringify");
     console.log(
         //for mysql storage json data
         (function objectToString(o) {
-            var str = "";
-            for (var propertyName in o) {
+            let str = "";
+            for (let propertyName in o) {
                 if (typeof o[propertyName] === "object") {
                     o[propertyName] = JSON.stringify(o[propertyName]);
                 }
@@ -351,13 +351,13 @@ var regexp = function() {
 
 //arrow function
 function SuperParent() {
-    var superThat = this;
+    let superThat = this;
     this.name = "super";
     (function(parentArg = "parent") {
-        var directThat = this;
+        let directThat = this;
         console.log(superThat.name);
         this.name = "directParent";
-        var child = {
+        let child = {
             name: "child",
             //in arrow fns, this = Directparent.this;
             //function exp is ok;
@@ -374,14 +374,14 @@ function SuperParent() {
 }
 //new SuperParent();
 
-//Construtor() and new Construtor(), this as implicit argument(iarg)
-var Constructor = function(){
+//Construtor() and new Construtor(), this as implicit argument(impArg)
+let Constructor = function(){
     let that = this;
     (function(){
         //true when Constructor call as command Fn;
-        //=> the outerFn.iarg.this and its embedded内嵌 fns.igrg.this point to the equal address.
+        //=> the outerFn.impArg.this and its embedded内嵌 fns.igrg.this point to the equal address.
         //false when Constructor call as a construtor;
-        //=> js will let fn.iarg.this point to the object when new fn() to create an object
+        //=> js will let fn.impArg.this point to the object when new fn() to create an object
         console.log(this===that); 
     })();
 
@@ -393,3 +393,23 @@ var Constructor = function(){
 };
 //Constructor(); 
 //new Constructor();
+
+//callBack fn diff: => or not =>
+let that = this;
+let pointToGlobalThis = function (fnn){
+    fnn();
+};
+let pointToCurModuleThis = (fnn)=>{
+    fnn();
+};
+
+//when using common fn, its implicit this will point to the this of global object(node/window/other) 
+/*pointToGlobalThis(function(){
+    console.warn(this === that);
+    console.warn(this);
+});*/
+//when using =>, its implicit this will point to the this of current module(single js file or other module)(node/window/other) 
+//when using => in an object A, the this in => will point to the parent object of A;
+/*pointToCurModuleThis(()=>{
+    console.warn(this === that);
+});*/

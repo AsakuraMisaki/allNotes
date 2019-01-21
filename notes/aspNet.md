@@ -3,7 +3,7 @@
 ### base relationship between an aspx and a cs
 
 ```asp
-./Default.cs (top defination)
+./Default.cs (top definition)
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="com_Default" %>
 
 ./Default.aspx.cs (CodeFile in its aspx)
