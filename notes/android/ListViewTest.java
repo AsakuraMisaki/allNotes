@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * -->[Core] in getView(...) method, setting the root view(the view for rendering) of listView,
  * with using LayoutInflater.from(Context.instance).inflate(resourceID, null);
  * then set the properties of each item needed to be rendered specially ;<--
- * [Note] when an adapter was set to an adapterView, the adapter will run its getView(...) to iterate迭代
+ * [Note] when an adapter was set to an adapterView, the adapter will run its getView(...) to iterate 迭代
  * the items in the bound list with {arg-int-position}, {arg-List<T>-objects}, then render the view;
  * */
 

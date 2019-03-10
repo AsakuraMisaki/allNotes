@@ -11,7 +11,11 @@
 //5.  express-static: express.static('staticFilePath', op)==> need not to add relative routes, instead use root
 //==> (right)host/static.file==> (false)host/staicFilePath/static.file==> because the staicFilePath route will be 
 //appended to global staticFile list, when staticFile is visited, server will find and send the file from the list
-//6.  ! never use insert into tbls (cols) values(), instead use insert into tbls set cols=values, cols= values
+/*6.  useful sql prepare/execute syntax:
+mysql> PREPARE stmt1 FROM 'SELECT SQRT(POW(?,2) + POW(?,2)) AS hypotenuse';
+mysql> SET @a = 3;
+mysql> SET @b = 4;
+mysql> EXECUTE stmt1 USING @a, @b;*/
 //function return
 let t0 = function() {
     let b = function() { return 1; };
@@ -279,7 +283,7 @@ let parasitic = function() {
     new SuperType("new super").getProperty("ref");
 };
 //parasitic();
-//(!) generally inheritance, adopt construtor mix prototype
+//(!) generally inheritance, adopt constructor mix prototype
 
 //error
 let errorTest = function(err) {
