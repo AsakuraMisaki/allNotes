@@ -1,4 +1,4 @@
-#Nginx
+# Nginx
 > the reverse proxy server
 
 ## Config(1.14.2)(with nodejs)
@@ -189,7 +189,7 @@ http{
 
 ### 500/404 when visit an url containing chinese string
 
-* scene0 
+* scene 
 > when visiting `localhost/f/你好/`, `localhost/f/你好/` => 
 (browser automatically encodes it to utf-8) `localhost/f/%4d%ee%/` => 
 (the charset of [host environment 宿主环境] of nginx, lunix, windows, etc, is not utf-8) `500/404 err`
