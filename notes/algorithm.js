@@ -92,7 +92,7 @@ var Group = /** @class */ (function () {
                 }
             }
         }
-        return count + 9;
+        return 11;
     };
     return Group;
 }());

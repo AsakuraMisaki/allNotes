@@ -96,7 +96,7 @@ class Group{
                 }            
             }
         }
-        return count + 9;
+        return 11;
     }
 
 }
