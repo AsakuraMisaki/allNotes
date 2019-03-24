@@ -13,13 +13,13 @@ class DP {
                 break;
             }
             default: {
-                throw new TypeError("dp: not" + q + " questions");
+                throw new TypeError("dp: no [" + q + "] questions");
             }
         }
     }
 
     //鸡蛋楼层问题
-    eggs(e=2, h=100): number{
+    eggs(e=3, h=1000): number{
         let f: number[][] = [];
     
         for(let i=0; i<e; i++){
@@ -45,7 +45,69 @@ class DP {
     
 }
 
-new DP("egg");
+//[A]{common math question}
+class Common{
+    constructor(q: string){
+        switch(q){
+            case 'complexPow':{
+                console.warn(this.complexPow(12345, 2, 3));
+                break;
+            }
+            default: {
+                throw new TypeError("common: no [" + q + "] questions");
+            }
+        }
+    }
+
+    complexPow(time: number, a: number, b: number): string{
+        let oa = a;
+        let ob = b;
+        for(let i=0; i<time; i++){
+            let t = oa*a - ob*b;
+            b = oa*b + ob*a;
+            a = t;
+        }
+        return a + " + " + b + "i";
+    }
+}
+
+//[A]{group}
+class Group{
+    constructor(q: string){
+        switch(q){
+            case 'tuple':{
+                console.warn(this.tuple(3));
+                break;
+            }
+            default: {
+                throw new TypeError("group: no [" + q + "] questions");
+            }
+        }
+    }
+
+    tuple(tuple: number=3, a:number[] = [1,1,1], b:number[] = [2,2,2], c:number[] = [3,3,3]):number{
+        let count: number = 0;
+        for(let i=0; i<tuple; i++){
+            for(let j=0; j<tuple; j++){
+                for(let k=0; k<tuple; k++){
+                    if(a[i]<b[j] && b[j]<c[k]){
+                        count++;
+                    }
+                }            
+            }
+        }
+        return count + 9;
+    }
+
+}
+
+//test-main
+{
+    //new DP("egg");
+    //new Common("complexPow");
+    new Group("tuple");
+
+}
 
 
 

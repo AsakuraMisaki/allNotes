@@ -1,3 +1,4 @@
+"use strict";
 //[Warn] Aware of your poor knowleage
 //declaration: [Warn]-the most unigorable resolution; [A]{name}-algorithm 
 //[A]{dynamic programming(dp)}
@@ -9,14 +10,14 @@ var DP = /** @class */ (function () {
                 break;
             }
             default: {
-                throw new TypeError("dp: not" + q + " questions");
+                throw new TypeError("dp: no [" + q + "] questions");
             }
         }
     }
     //鸡蛋楼层问题
     DP.prototype.eggs = function (e, h) {
-        if (e === void 0) { e = 2; }
-        if (h === void 0) { h = 100; }
+        if (e === void 0) { e = 3; }
+        if (h === void 0) { h = 1000; }
         var f = [];
         for (var i = 0; i < e; i++) {
             f[i] = [];
@@ -38,4 +39,66 @@ var DP = /** @class */ (function () {
     };
     return DP;
 }());
-new DP("egg");
+//[A]{common math question}
+var Common = /** @class */ (function () {
+    function Common(q) {
+        switch (q) {
+            case 'complexPow': {
+                console.warn(this.complexPow(12345, 2, 3));
+                break;
+            }
+            default: {
+                throw new TypeError("common: no [" + q + "] questions");
+            }
+        }
+    }
+    Common.prototype.complexPow = function (time, a, b) {
+        var oa = a;
+        var ob = b;
+        for (var i = 0; i < time; i++) {
+            var t = oa * a - ob * b;
+            b = oa * b + ob * a;
+            a = t;
+        }
+        return a + " + " + b + "i";
+    };
+    return Common;
+}());
+//[A]{group}
+var Group = /** @class */ (function () {
+    function Group(q) {
+        switch (q) {
+            case 'tuple': {
+                console.warn(this.tuple(3));
+                break;
+            }
+            default: {
+                throw new TypeError("group: no [" + q + "] questions");
+            }
+        }
+    }
+    Group.prototype.tuple = function (tuple, a, b, c) {
+        if (tuple === void 0) { tuple = 3; }
+        if (a === void 0) { a = [1, 1, 1]; }
+        if (b === void 0) { b = [2, 2, 2]; }
+        if (c === void 0) { c = [3, 3, 3]; }
+        var count = 0;
+        for (var i = 0; i < tuple; i++) {
+            for (var j = 0; j < tuple; j++) {
+                for (var k = 0; k < tuple; k++) {
+                    if (a[i] < b[j] && b[j] < c[k]) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count + 9;
+    };
+    return Group;
+}());
+//test-main
+{
+    //new DP("egg");
+    //new Common("complexPow");
+    new Group("tuple");
+}
