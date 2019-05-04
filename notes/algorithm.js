@@ -96,9 +96,108 @@ var Group = /** @class */ (function () {
     };
     return Group;
 }());
+//BFS
+//node struct
+//[p]<amv> - the value (number[]) of the node in the adjacency matrix
+var MyNode = /** @class */ (function () {
+    function MyNode(amv, order) {
+        this.parent = Object();
+        this.amv = amv;
+        this.order = order;
+    }
+    MyNode.prototype.setParent = function (parent) {
+        this.parent = parent;
+    };
+    return MyNode;
+}());
+var BFS = /** @class */ (function () {
+    function BFS(width, height, start, end) {
+        var gi = this.graphInit(width, height);
+        var visited = new Array(gi.nc);
+        var searhQueue;
+        var nodeList = [];
+        // gi.am[1][3] = 0;
+        // gi.am[3][1] = 0;
+        // gi.am[2][3] = 0;
+        // gi.am[3][2] = 0;
+        for (var i = 0; i < gi.nc; i++) {
+            nodeList.push(new MyNode(gi.am[i], i));
+        }
+        for (var v = 0; v < visited.length; v++) {
+            visited[v] = false;
+        }
+        var found = false;
+        visited[start] = true;
+        searhQueue = [nodeList[start]];
+        var path = 'path: ';
+        while (!found) {
+            //queue head pop
+            var temp = searhQueue[0];
+            start = temp.order;
+            searhQueue.shift();
+            //select the next search queue nodes (the direct clid nodes of the current one)
+            //set their parent to the current one
+            for (var j = 0; j < temp.amv.length; j++) {
+                //ignore visited
+                if (temp.amv[j] === 1 && visited[j] === false) {
+                    //console.warn(j);
+                    visited[j] = true;
+                    searhQueue.push(nodeList[j]);
+                    nodeList[j].setParent(nodeList[start]);
+                    if (j === end) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+        for (var i = 0; i < nodeList.length; i++) {
+            console.warn("o-p " + nodeList[i].order + "-" + nodeList[i].parent.order);
+        }
+    }
+    //adjacency matrix邻接矩阵
+    BFS.prototype.graphInit = function (width, height) {
+        //node array
+        var nodeCount = (width * height);
+        var node = new Array(nodeCount);
+        var xMax = width;
+        //[adjacency matrix邻接矩阵] 
+        var am = new Array(nodeCount);
+        //the simple grid graph generated through loop
+        //when not match directly, 0, otherwise 1 (Undirected graph)
+        for (var i = 0; i < nodeCount; i++) {
+            am[i] = new Array(nodeCount);
+            for (var j = 0; j < nodeCount; j++) {
+                am[i][j] = 0;
+            }
+        }
+        for (var i = 0; i < nodeCount - xMax; i++) {
+            //console.warn(i);
+            am[i][i + 1] = 1;
+            am[i + 1][i] = 1;
+            am[i][i + xMax] = 1;
+            am[i + xMax][i] = 1;
+            if ((i + 1) % xMax === 0) {
+                am[i][i + 1] = 0;
+                am[i + 1][i] = 0;
+            }
+        }
+        for (var i = nodeCount - xMax; i < nodeCount - 1; i++) {
+            am[i][i + 1] = 1;
+            am[i + 1][i] = 1;
+        }
+        console.warn(JSON.stringify(am));
+        return {
+            nc: nodeCount,
+            am: am
+        };
+    };
+    return BFS;
+}());
 //test-main
 {
     //new DP("egg");
     //new Common("complexPow");
-    new Group("tuple");
+    // Group("tuple");
+    new BFS(2, 3, 0, 5);
 }
