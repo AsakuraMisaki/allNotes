@@ -399,19 +399,50 @@ let Constructor = function(){
 //new Constructor();
 
 //callBack fn diff: => or not =>
-let that = this;
-let pointToGlobalThis = function (fnn){
-    fnn();
-};
-let pointToCurModuleThis = (fnn)=>{
-    fnn();
-};
+//assume you are adding listener to an DOM Instance, like FileReader();
+(function ArrowTestContainer(){
+    function FileReaderEmpty(){
+        if(this.process){
+            //this - Object[Global]
+            console.warn('node ' + this.process.versions.node); 
+        }  
+    };
+    FileReaderEmpty();
+    FileReaderEmpty.prototype.anListener = function(eventType, fn){
+        //key point, make sure that 'this' is not global object / 
+        //'this' is an actual instance of new Parent()
+        //if has not 'this' as arg, fn.caller === global object
+        fn.call(this); 
+    }
+    FileReaderEmpty.prototype.progress = function(){
+        console.warn('--frt progress\n');
+    }
+    function ArrowTest(){
+        this.name = 'arrowTest';
+        this.fr = new FileReaderEmpty();
+        this.fr.anListener('progress', ()=>{
+            //this - ArrowTest Instance: a : fr.parent
+            //[guess]: arrow fn must automatically make 'this' point to the actual instance of new Parent()
+            //arrow fn is not a syntax candy
+            console.warn('=>');
+            console.warn(this); 
+        });
+        this.fr.anListener('progress', function(){
+            //this - FileReaderEmpty Instance: fr
+            console.warn('no =>'); 
+            console.warn(this); 
+        });
+    }
+    let a = new ArrowTest();
+})()
+
+
 //[this] in => fn will point to the parent object of the fn, while no => will not
 
 //new Function(arg:string, ...:string, codeBlock:string)
-let newFunctionExample = {
-    fnA = new Function('withArg', 'console.warn(withArg \\n (!withArg))'),
-    fnNoA = new Function('console.warn("no Arg")')
-}
+// let newFunctionExample = {
+//     fnA: new Function('withArg', 'console.warn("withArg \\n (!withArg)")'),
+//     fnNoA: new Function('console.warn("no Arg")')
+// }
 //arg and codeBlock will be explained to standard string, if you want to console.warn(str1) an newline, you must let the str1 containing the '\n', so you need to use '\\n' to output '\n' rather than use '\n' to output an newline
 //fnNoA is similar to eval(), but might more safer with new Function syntax, besides, new Function syntax allow us using arguments to limit the codeBlock 
