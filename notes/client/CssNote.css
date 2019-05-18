@@ -1,0 +1,86 @@
+/*browser specify*/
+
+/* for fill text with image(webkit only)*/
+.imageBackground{
+	background: url("./image/background.jpg");
+	/*background clip裁剪
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+}
+
+/*media*/
+@media screen and (max-width: 900px) {
+    /*some selectors*/
+}
+
+/*some ways to avoid horizontal scroll when using flex layout*/
+/*1 when you need adding padding for elements in flex layout,use max-width to make sure the sum of 
+their width would not overflow the screen, often [100-padding = max-width %](the minimum of max-width)*/
+.selector{
+    padding-left: 4%;
+    max-width: 96%;
+}
+
+/*flex width calculate, eg: the width of itemInFlex=flexWidth-(itemPadding+margin+border)=1000-30-30-30
+all padding/margin/border will be added in calculation*/
+/*overflow screen: when the width of any box of item, which equals the width of 
+padding+margin+border+content-self in flex > screen width*/
+.flex{
+	display: flex;
+	width: 1000px;
+}
+.itemInFlex{
+	width: 100%;
+	padding: 30px;
+	margin-left: 30px;
+	border-left: 30px;
+}
+
+/*font-face(css3), define your own font with local resource(src)*/
+@font-face{
+	/*user-defined name*/
+    font-family: "iconFont";
+    src: url(./res/font/glyphicons/flat-ui-pro-icons-regular.ttf), 
+    url(./res/font/glyphicons/flat-ui-pro-icons-regular.woff),
+    url(./res/font/glyphicons/flat-ui-pro-icons-regular.eot);
+}
+
+#t:before{
+	/*reference*/
+    font-family: "iconFont";
+    /*use unicode to import required and special font/icon*/
+    content: "\e626";
+}
+
+
+/*float, assume your browser screen*/
+Browser-Screen{
+	width: 1280px;
+	height: 720px;
+}
+[class*="float-"]{
+	float: left;
+	width: 50%; /*== 50% * screen.width == 640px true*/
+	height: 50%; /*== 720 * 50% == 360px true*/
+}
+/*if its container is flex(display: flex), float will not [lose efficacy失效],
+but will be affected by flex
+
+/*box-shadow and boxs' index*/
+/*in html, you want to make the upper box's shadow to cover the below box: eg.*/
+/*<div.box1/>
+<div.box2/>*/
+/*css*/
+.box1{
+	box-shadow: 0 0 0 #fff;
+	/*1. define the position(necessary) and z-index*/
+	position: relative;
+	z-index: 1;
+	/*2.transform it(2d or 3d)*/
+	/*[warn!] sometime the following property cause its children's position fail*/
+	transform: translate(0,0);
+}
+.box2{
+	position: relative;
+	z-index: 0;
+}

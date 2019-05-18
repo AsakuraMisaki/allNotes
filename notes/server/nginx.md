@@ -192,6 +192,6 @@ http{
 * scene 
 > when visiting `localhost/f/你好/`, `localhost/f/你好/` => 
 (browser automatically encodes it to utf-8) `localhost/f/%4d%ee%/` => 
-(the charset of [host environment 宿主环境] of nginx, lunix, windows, etc, is not utf-8) `500/404 err`
+(the charset of [host environment 宿主环境] of nginx, like lunix, windows, is not utf-8) `500/404 err`
 
 * (!) set the charset of your system to utf-8, then configure the nginx.conf `location [router]{charset utf-8}`(like the nginx.conf above)*

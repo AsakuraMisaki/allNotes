@@ -1,5 +1,5 @@
 //MISAKI
-//EXPRESS & NODEJS
+//EXPRESS & NODEJS & JS_SELF & DOM
 //debug and find the differences among log/debug orders
 
 //notes:
@@ -16,6 +16,10 @@ mysql> PREPARE stmt1 FROM 'SELECT SQRT(POW(?,2) + POW(?,2)) AS hypotenuse';
 mysql> SET @a = 3;
 mysql> SET @b = 4;
 mysql> EXECUTE stmt1 USING @a, @b;*/
+
+const { StringDecoder } = require('string_decoder');
+const decoder = new StringDecoder('utf8');
+
 //function return
 let t0 = function() {
     let b = function() { return 1; };
@@ -434,7 +438,7 @@ let Constructor = function(){
         });
     }
     let a = new ArrowTest();
-})()
+})
 
 
 //[this] in => fn will point to the parent object of the fn, while no => will not
@@ -446,3 +450,40 @@ let Constructor = function(){
 // }
 //arg and codeBlock will be explained to standard string, if you want to console.warn(str1) an newline, you must let the str1 containing the '\n', so you need to use '\\n' to output '\n' rather than use '\n' to output an newline
 //fnNoA is similar to eval(), but might more safer with new Function syntax, besides, new Function syntax allow us using arguments to limit the codeBlock 
+
+
+
+//NODE API (V8)
+//Buffer
+let NodeApiTest = {
+    bufferTest(){
+        let str0 = 'undefined';
+        let str1 = '';
+        let extra = '{body}';
+        let buffer0 = Buffer.from(str0); //buffer -- string:'undefined'
+        let buffer1 = Buffer.from(str1); //buffer -- string:''
+        let bufferE = Buffer.from(extra);
+        let r0 = decoder.end((buffer0 + bufferE));
+        let r1 = decoder.end((buffer1 + bufferE));
+        console.warn(r0); //undefined{body}
+        console.warn(r1); //{body}
+    }
+}
+
+NodeApiTest.bufferTest();
+
+//STANDARD BUILT-IN
+let StandardBuiltIn = {
+    //TypedArray - 2015 - ex Function
+    //MDN/JavaScript/Reference/Global_Objects/TypedArray#Description
+    ta(){
+        let oData = 'multipart/form-data; boundary=' + '----------' + Date.now().toString(16);
+        let u8 = new Uint8Array(oData.length);
+        Array.prototype.forEach.call(u8, function (el, idx, arr) { arr[idx] = oData.charCodeAt(idx); });
+        let u8ArrayBuffer = u8.buffer;
+        console.warn(u8);
+        console.warn(u8.buffer);
+    }
+}
+
+StandardBuiltIn.ta();
