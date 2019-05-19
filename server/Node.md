@@ -43,17 +43,30 @@
 
 ## Express
 
-### middlewares register way: Stack
+### middlewares register way: Queue
 
-> command use `express().use([routes...], cb)`
-> eg. ("/"=> all routes)
+* <http://www.expressjs.com.cn/4x/api.html#app.use>
+
+> eg.
 
 ```js
-//middlewares declaration order is their register order
+let express = required('express');
+let server = express();
 
-express().use("/", function(req, res, next){
-//some code;
-next();
+server.use("/", function(req, res, next){
+    console.warn('first');
+    //next middleware
+    next();
 });
+server.use("/", function(req, res, next){
+    console.warn('second');
+    //next middleware
+    next();
+});
+server.get("/", function(req, res, next){
+    console.warn(req.originalUrl);
+    res.send('done');
+    //no next middleware
+})
 
 ```
