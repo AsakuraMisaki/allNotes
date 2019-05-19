@@ -30,6 +30,8 @@
     });
 ```
 
+***(!)make sure that http message is legal, such as its properties, format(new line, buffer/string for dividing message parts and so on)***
+
 ## API [Type] {Implement}
 
 ### http.InComingMessage [Class] {stream.Readable}
