@@ -19,9 +19,13 @@
 ``` 
 <br>
 ***(!)the '\r\n'(windows) or '\n'(unix) can not be ommitted in buffer; but them will be processed as new Line instead of string in http message***
+<br>
 ***(!)boundary=... can not be [ommitted省略], it is required to be uniqued, each browser has its own unique boundary***
+<br>
 ***(!)name can be handled as fieldID, like (nodejs-middleware) multer().single(name)***
+<br>
 ***(!)after headers, content start with '--${boundary}\r\n', parts are devided by '--${boundary}\r\n',end with ''--${boundary}--\r\n', '--' and '\r\n' can not be ommitted***
+<br>
 <br>
 * sample: upload file without '<form>' (chrome)
 ```js
@@ -54,6 +58,7 @@
     Array.prototype.forEach.call(lastBuffer, function (el, idx, arr) { arr[idx] = lastStr.charCodeAt(idx); });
     //console.warn(lastBuffer);
     ////
+
     //step1: read file as arraybuffer, make it become TypedArray, write all TypedArrays in a new TypedArray [in sequence按顺序] BODY, then you check and send BODY.buffer, which is an ArrayBuffer, the raw binary data buffer, Standard Built-In
     fr.addEventListener('loadend', function(e){
         console.warn(this.result);
@@ -73,5 +78,6 @@
         console.warn(body);
         oReq.send(body);
     })
+    ////
 
 ```
