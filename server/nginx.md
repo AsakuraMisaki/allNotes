@@ -1,11 +1,12 @@
 # Nginx
+
 > the reverse proxy server
 
 ## Config(1.14.2)(with nodejs)
-> official: http://nginx.org/en/docs/
 
-### ./conf/nginx.conf
- 
+> official: <http://nginx.org/en/docs/>
+
+## ./conf/nginx.conf
 
 ```bat
 
@@ -127,14 +128,14 @@ events {
 # }
 
 http{
-    
+
     include       mime.types;
     default_type  application/octet-stream;
     sendfile on;
     charset utf-8;  
 
     keepalive_timeout 65;  #超时
-    
+
     gzip on; #是否开启压缩模块
     gzip_comp_level 6;  #压缩比例 1-9
     gzip_vary on;  #根据http头判断是否进行压缩
@@ -147,7 +148,7 @@ http{
         keepalive 64; #超时
     }
     server{
-        
+
         listen 3000;  #监听80端口
         server_name m.com;  #设置服务名称
         charset utf-8;
@@ -156,7 +157,7 @@ http{
         //format location [router(real path or virtual path, support regex)]{key value}
 
         // eg. / is not a static router, which need the explanation of node.js
-        location / { 
+        location / {
             proxy_pass http://my_node_app;  //transfer control rights to my_node_app(upstream object)
             proxy_redirect off;
             proxy_set_header X-Real-IP $remote_addr;
@@ -166,14 +167,14 @@ http{
 
         // eg. {reg} is not a static router, which need only the static processing module of nginx
         # location ~ ^/(img/|js/|css/|images/|flash/|media/)$ { #如果是静态文件 则劫持处理
-        #     root /home/app/myapp/public;  #your project url 
+        #     root /home/app/myapp/public;  #your project url
         #     access_log off;
         #     expires max;
         # }
 
         // eg. / is a static router, which need only the static processing module and the autoindex module of nginx
         location /static{
-            alias D:/; //the path where /static mapping 
+            alias D:/; //the path where /static mapping
             # root D:/;
             autoindex on;   #开启nginx目录浏览功能
             autoindex_exact_size off;   #文件大小从KB开始显示
@@ -189,9 +190,12 @@ http{
 
 ### 500/404 when visit an url containing chinese string
 
-* scene 
-> when visiting `localhost/f/你好/`, `localhost/f/你好/` => 
-(browser automatically encodes it to utf-8) `localhost/f/%4d%ee%/` => 
+* scene
+
+> when visiting `localhost/f/你好/`, `localhost/f/你好/` =>
+
+(browser automatically encodes it to utf-8) `localhost/f/%4d%ee%/` =>
+
 (the charset of [host environment 宿主环境] of nginx, like lunix, windows, is not utf-8) `500/404 err`
 
-* (!) set the charset of your system to utf-8, then configure the nginx.conf `location [router]{charset utf-8}`(like the nginx.conf above)*
+***(!) set the charset of your system to utf-8, then configure the nginx.conf `location [router]{charset utf-8}`(like the nginx.conf above)***
