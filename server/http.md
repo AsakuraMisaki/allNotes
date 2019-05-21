@@ -27,7 +27,7 @@
 
 ***(!)name can be handled as fieldID, like (nodejs-middleware) multer().single(name)***
 
-***(!)after headers, content start with '--${boundary}\r\n', parts are devided by '--${boundary}\r\n',end with ''--${boundary}--\r\n', '--' and '\r\n' can not be ommitted***
+***(!)after headers, content start with `--${boundary}\r\n`, parts are devided by `--${boundary}\r\n`,end with `--${boundary}--\r\n`, '--' and '\r\n' can not be ommitted***
 
 * sample: upload file without &lt;form&gt; (chrome)
 
