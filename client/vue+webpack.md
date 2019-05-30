@@ -1,28 +1,9 @@
 # Webpack And Vue.js Projects Build
+
 * [npm](#npm)
 * [vue](#vue20)
 * [webpack](#webpack)
 * [CommonJS & ES2015](#commonjs--es2015)
-
-## npm
-
-#### npm install/remove <name> (-g)
-
-> all repertories仓库 can use npm install/remove (-g) to import/remove<br>
-
-#### npm init (options)
-
-> npm init (-y), with -y: generate default package.json<br>
-
-> without -y: generate user-defined package.json<br>
- `"dependencies: {...}, devDependencies: {...}"` in package.json will be downloaded into node_modules with `npm install` , then you can require them with CommonJS syntax, eg. require('vue-loader')<br>
-> `scripts{"dev": "someCommand"}` in package.json means that you can use corresponding相应的 alias to run user-defined npm command, eg. `npm run dev` = `someCommand`
-
-#### node_modules
-
-*(!) when change your root path property(like name), some error will happen when require the dependencies, node/module.js throw an module not found error*
-
-> the folder to storage your dependencies
 
 ## vue2.0+
 

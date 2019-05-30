@@ -87,7 +87,6 @@ server.get("/", function(req, res, next){
     //Pseudo code
 
     GET / HTTP/1.1
-    socket.js:88
     Host: 127.0.0.1:8080
     Connection: Upgrade
     Pragma: no-cache
@@ -111,7 +110,6 @@ server.get("/", function(req, res, next){
     //Pseudo code
 
     HTTP/1.1 101 Switching Protocols
-    socket.js:93
     Upgrade: websocket
     Connection: Upgrade
     Sec-Websocket-Accept: zoN06mhkUfv6QXh2sdIpnI47fY4=
@@ -222,3 +220,28 @@ function encodeWsFrame(data) {
 
 }
 ```
+
+## npm
+
+### npm install/remove [name] (-g)
+
+> all repertories仓库 can use npm install/remove (-g) to import/remove
+
+### npm init (options)
+
+> npm init (-y), with -y: generate default package.json
+> without -y: generate user-defined package.json `"dependencies: {...}, devDependencies: {...}"` in package.json will be downloaded into node_modules with `npm install` , then you can require them with CommonJS syntax, eg. require('vue-loader')
+> `scripts{"dev": "someCommand"}` in package.json means that you can use corresponding相应的 alias to run user-defined npm command, eg. `npm run dev` = `someCommand`
+
+### npm config
+
+* mirror urls for npm instead of cnpm
+
+```bat
+    set registry https://registry.npm.taobao.org --global
+    npm config set disturl https://npm.taobao.org/dist --global
+```
+
+### node_modules
+
+***(!) when change your root path property(like name), some error will happen when require the dependencies, node/module.js throw an module not found error***
