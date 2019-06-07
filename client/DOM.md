@@ -1,5 +1,7 @@
 # DOM
 
+* [BFC](#BFC(Block-Formatting-Context))
+
 ## Issues
 
 ### Write the width of canvas in js instead of css
@@ -7,7 +9,20 @@
 > canvas will be [stretched拉伸] from (200,200) to your (width,height) in css, which causes that all pixels will be enlarged and become [dim模糊]
 ***(!) using canvas.width = WIDTH is recommended***
 
-### &lt;script type="module" src="./some.js"/>
+## ES6
+
+### String Template
+
+* [MDN]<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>
+
+```js
+    let user = 'World';
+    let strT = `Hello ${user}
+    New Line`;
+    console.warn(strT);
+```
+
+### Modules
 
 * to use es6-export, import and other module spcifications or features
 
@@ -48,17 +63,10 @@ var o = {}   //need semicolon here
 })();
 ```
 
-## ES6
-
-### String Template
-
-* [MDN]<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>
-
-```js
-    let user = 'World';
-    let strT = `Hello ${user}
-    New Line`;
-    console.warn(strT);
-```
-
 > it allows you write string in multi lines and use ${arg} to refer variables
+
+## BFC(Block Formatting Context)
+
+* [MDN] <https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context>
+
+> some issues, such as float-clear or vertical-margin-merge, are related to BFC
