@@ -4,6 +4,7 @@
 * [API](#API-[Type]-{Implement})
 * [Express](#Express)
 * [Demo](#Demo)
+* [JavaScript-Module](#Module)
 
 ## Server Interacts with Client
 
@@ -245,3 +246,10 @@ function encodeWsFrame(data) {
 ### node_modules
 
 ***(!) when change your root path property(like name), some error will happen when require the dependencies, node/module.js throw an module not found error***
+
+## Module
+
+### Why Modules
+
+> duplicate namespace and gloabl vars, code reuse, project structure, objects relation reflection,
+dependencies relation reflection, unit testing, team work, code design [patterns模式], OOP(Object Oriented Programming), project [maintainablity可维护性], performance, dependencies loading style(asynchronous/synchronous/lazy(first call, load, otherwise never load)), etc.
